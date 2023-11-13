@@ -1,0 +1,35 @@
+
+# Algoritmos para detecção de ciclos
+# Grafos não dirigidos:
+
+boolean containsCycle (v):
+  marked[v] = true
+  for each vertex u, adjacent to v do:
+    if marked[u] == false:
+      # add edge(u,v) to edge set
+      containsCycle (u)
+    else:
+      if edge (v,u) not in edge set:
+        # cycle has been detected!
+ 
+# Grafos dirigidos:
+ 
+boolean containsCycle(Graph g):
+  for each vertex v in g do:
+    v.mark = WHITE;
+  for each vertex v in g do:
+    if v.mark == WHITE:
+      if visit(g, v):
+        return TRUE
+  return FALSE
+ 
+boolean visit(Graph g, Vertex v):
+  v.mark = GREY
+  for each edge (v, u) in g:
+    if u.mark == GREY:
+      return TRUE
+    else if u.mark == WHITE:
+      if visit(g, u):
+        return TRUE
+  v.mark = BLACK;
+  return FALSE

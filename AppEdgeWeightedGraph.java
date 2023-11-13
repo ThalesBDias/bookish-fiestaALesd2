@@ -9,12 +9,12 @@ public class AppEdgeWeightedGraph
     */
     //EdgeWeightedGraph g = new EdgeWeightedGraph("casoa5.txt");
     EdgeWeightedGraph g = new EdgeWeightedGraph("casoa5.txt");
-    for (String v : g.getVerts()) {
+    /*for (String v : g.getVerts()) {
       System.out.print(v + ": ");
       for (Edge e : g.getAdj(v))
         System.out.print(e + " ");
       System.out.println();
-    }
+    }*/
 
     System.out.println();
     System.out.println(g.toDot());

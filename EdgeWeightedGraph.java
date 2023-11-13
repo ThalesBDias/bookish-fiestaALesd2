@@ -9,18 +9,22 @@ public class EdgeWeightedGraph {
   protected static final String NEWLINE = System.getProperty("line.separator");
 
   protected Map<String, List<Edge>> graph;
+  protected Set<String> vertices;
+  protected int totalVertices;
+  protected int totalEdges;
 
   public EdgeWeightedGraph() {
     graph = new HashMap<>();
+    vertices = new HashSet<>();
+    totalVertices = totalEdges = 0;
   }
 
   public EdgeWeightedGraph(String filename) {
     this();
     In in = new In(filename);
     String line;
-    //String Input;
-    //String Output;
-    while((line = in.readLine()) != null) {
+    while ((line = in.readLine()) != null) {
+    
       String[] inputOutput = line.split("->");
       //System.out.println("1Split");
       String[] input = inputOutput[0].split(" ");
@@ -34,39 +38,58 @@ public class EdgeWeightedGraph {
       }
       
     }
+  
     in.close();
   }
 
-  public void addEdge(String v, String w, int weight) {
+  public void addEdge(String v, String w, double weight) {
     Edge e = new Edge(v, w, weight);
     addToList(v, e);
     addToList(w, e);
+    if(!vertices.contains(v)) {
+      vertices.add(v);
+      totalVertices++;
+    }
+    if(!vertices.contains(w)) {
+      vertices.add(w);
+      totalVertices++;
+    }
+    totalEdges += 2;
   }
 
   public Iterable<Edge> getAdj(String v) {
-    return graph.get(v);
+    List<Edge> res = graph.get(v);
+    if (res == null) res = new LinkedList<>();
+    return res;
   }
+
+  public int getTotalVerts() { return totalVertices; }
+  
+  public int getTotalEdges() { return totalEdges; }
 
   public Set<String> getVerts() {
-    return graph.keySet();
+    return vertices;
   }
 
-  public String toDot() {
-    // Usa um conjunto de arestas para evitar duplicatas
-    Set<String> edges = new HashSet<>();
-    StringBuilder sb = new StringBuilder();
-    sb.append("graph {"+NEWLINE);
-    sb.append("rankdir = LR;"+NEWLINE);
-    sb.append("node [shape = circle];"+NEWLINE);
-    for(String v: getVerts().stream().sorted().toList()) {
-      for (Edge e: getAdj(v)) {
-        String edge = e.toString();
-        if(!edges.contains(edge)) {
-          sb.append(String.format("%s -- %s [label=\"%.3f\"]", e.getV(), e.getW(), e.getWeight()) + NEWLINE);
-          edges.add(edge);
+  public Iterable<Edge> getEdges() {
+    Set<Edge> ed = new HashSet<>();
+    for (String v : getVerts().stream().sorted().toList()) {
+      for (Edge e : getAdj(v)) {
+        if (!ed.contains(e)) {
+          ed.add(e);
         }
       }
     }
+    return ed;
+  }
+
+  public String toDot() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("graph {" + NEWLINE);
+    sb.append("rankdir = LR;" + NEWLINE);
+    sb.append("node [shape = circle];" + NEWLINE);
+    for (Edge e : getEdges())
+      sb.append(String.format("%s -- %s [label=\"%.3f\"]", e.getV(), e.getW(), e.getWeight()) + NEWLINE);
     sb.append("}" + NEWLINE);
     return sb.toString();
   }
