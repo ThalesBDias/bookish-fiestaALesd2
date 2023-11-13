@@ -1,0 +1,16 @@
+10 hidrogenio -> 1 iterbio
+1 hidrogenio -> 1 praseodimio
+2 hidrogenio -> 1 romo
+8 hidrogenio -> 1 protatinio
+3 hidrogenio -> 1 admio
+6 hidrogenio -> 1 europio
+7 hidrogenio -> 1 esio
+10 hidrogenio -> 1 itrio
+1 hidrogenio -> 1 erbio
+3 iterbio 3 itrio -> 1 promeio
+4 romo 3 praseodimio -> 1 zino
+8 admio 6 netunio -> 1 paladio
+3 europio 3 protatinio -> 1 selenio
+5 esio 2 erbio -> 1 netunio
+8 promeio 9 paladio -> 1 zino
+6 zino 1 selenio -> 1 ouro
